@@ -1,0 +1,1003 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Jio-bp Case Study · Visual</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: editorial case study. A quiet sticky chapter bar, a type-led hero with the growth line as its only image,
+   then chapters on a two-column grid (chapter label left, content right). One dark band near the end for depth. */
+:root{
+  --paper:#F6F7F3; --card:#FFFFFF; --ink:#0C1A13; --ink-2:#4A5750; --ink-3:#86918B; --rule:#E1E5DF; --rule-2:#ECEFEA; --wash:#EFF2EC;
+  --brand:#0F7A41; --brand-deep:#0B3B24; --brand-ink:#E8F2EC; --brand-ink-2:#9DBBAA; --sun:#F4C21B;
+  --s1:#17834A; --s2:#2F78C4; --s3:#A65A34; --s4:#D6A821; --s5:#7B66CC;
+  --shadow:0 1px 0 rgba(12,26,19,.04),0 12px 32px -18px rgba(12,26,19,.18);
+  --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0B120F; --card:#111A15; --ink:#ECF1EE; --ink-2:#A8B4AE; --ink-3:#6E7B74; --rule:#1F2B25; --rule-2:#18221D; --wash:#141E19;
+  --brand:#43C27C; --brand-deep:#06231A; --brand-ink:#E8F2EC; --brand-ink-2:#8FB09E;
+  --s1:#2FA866; --s2:#4C8EE0; --s3:#BE6F42; --s4:#CFA42C; --s5:#937FE0;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 16px 40px -20px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B120F; --card:#111A15; --ink:#ECF1EE; --ink-2:#A8B4AE; --ink-3:#6E7B74; --rule:#1F2B25; --rule-2:#18221D; --wash:#141E19;
+  --brand:#43C27C; --brand-deep:#06231A; --brand-ink:#E8F2EC; --brand-ink-2:#8FB09E;
+  --s1:#2FA866; --s2:#4C8EE0; --s3:#BE6F42; --s4:#CFA42C; --s5:#937FE0;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 16px 40px -20px rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0}
+em{font-style:normal}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:56px}
+.who{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);white-space:nowrap}
+.who b{color:var(--ink);font-weight:500}
+.chapters{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.chapters a{display:block;padding:6px 10px;border-radius:999px;font-size:13px;color:var(--ink-3);text-decoration:none;transition:color .25s,background .25s}
+.chapters a:hover{color:var(--ink)}
+.chapters a.on{color:var(--ink);background:var(--wash)}
+.now{display:none;font-size:13px;color:var(--ink-2)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--brand);transform-origin:left;transform:scaleX(0)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(48px,7vw,96px) 0}
+.client{display:flex;align-items:center;gap:18px;margin-bottom:clamp(36px,5vw,64px)}
+.logo-tile{background:#fff;border-radius:14px;padding:12px 16px;box-shadow:var(--shadow);border:1px solid var(--rule);display:inline-flex}
+.logo-tile img{width:118px;height:auto;display:block}
+.client .meta{display:grid;gap:2px}
+.client .meta span:last-child{font-size:14px;color:var(--ink-2)}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(46px,8.2vw,112px);line-height:.98;letter-spacing:-.028em;max-width:15ch}
+.hero h1 .accent{color:var(--brand)}
+.hero h1 .ln{display:block}
+.intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,6vw,96px);margin-top:clamp(32px,4vw,52px);align-items:start}
+.intro p{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:var(--ink-2);max-width:54ch}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;border-top:1px solid var(--rule);padding-top:18px}
+.facts div{display:grid;gap:3px}
+.facts span:last-child{font-size:14.5px;color:var(--ink)}
+
+.growth-hero{position:relative;margin-top:clamp(48px,6vw,80px)}
+.growth-hero svg{display:block;width:100%;height:auto;overflow:visible}
+.gh-line{fill:none;stroke:var(--brand);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.gh-area{fill:url(#ghFill)}
+.gh-grid{stroke:var(--rule);stroke-width:1}
+.gh-dot{fill:var(--card);stroke:var(--brand);stroke-width:2}
+.gh-txt{font-family:var(--mono);font-size:11px;fill:var(--ink-3);letter-spacing:.06em}
+.gh-ann{font-family:var(--serif);font-size:18px;fill:var(--ink)}
+.gh-ann-s{font-family:var(--sans);font-size:12px;fill:var(--ink-3)}
+.gh-hit{fill:transparent;cursor:crosshair}
+.gh-cross{stroke:var(--ink-3);stroke-dasharray:2 3;opacity:0;transition:opacity .15s}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);margin-top:clamp(36px,4vw,56px)}
+.kpi{padding:22px 22px 26px 0;display:grid;gap:8px;align-content:start}
+.kpi + .kpi{padding-left:22px;border-left:1px solid var(--rule)}
+.kpi .v{font-family:var(--serif);font-weight:300;font-size:clamp(44px,5.4vw,68px);line-height:.95;letter-spacing:-.03em}
+.kpi .v small{font-size:.42em;letter-spacing:0;color:var(--ink-2);margin-left:4px}
+.kpi p{font-size:14px;color:var(--ink-2);line-height:1.45;max-width:24ch}
+
+/* ---------- chapters ---------- */
+.ch{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-block:clamp(72px,10vw,136px);border-top:1px solid var(--rule)}
+.ch-label{position:sticky;top:88px;align-self:start;display:grid;gap:6px}
+.ch-label .n{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--brand)}
+.ch-label .t{font-size:14px;color:var(--ink-2)}
+.ch h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,58px);line-height:1.04;letter-spacing:-.022em;max-width:22ch}
+.ch h2 em{color:var(--brand)}
+.lede{font-size:18px;color:var(--ink-2);max-width:60ch;margin-top:20px;line-height:1.6}
+.block{margin-top:clamp(36px,5vw,56px)}
+
+/* challenge */
+.pull{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.4vw,29px);line-height:1.38;letter-spacing:-.01em;max-width:40ch;margin-top:24px;color:var(--ink)}
+.pull mark{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 55%,transparent) 62%);color:inherit;padding:0 .05em}
+.objs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+.obj{border-top:1px solid var(--rule);padding:18px 0 26px;display:grid;gap:10px;align-content:start}
+.obj .label{color:var(--brand)}
+.obj p{font-size:15.5px;line-height:1.5}
+
+/* cards & controls */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:20px;box-shadow:var(--shadow);padding:clamp(18px,3vw,32px);min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px 24px;flex-wrap:wrap}
+.card-head h3{font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:-.005em}
+.card-head .sub{font-size:13.5px;color:var(--ink-3);margin-top:2px}
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--wash);border:1px solid var(--rule);gap:2px}
+.seg button{border:0;background:transparent;padding:6px 14px;border-radius:999px;font-size:13px;color:var(--ink-2);cursor:pointer;transition:background .25s var(--ease),color .25s}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08),0 0 0 1px var(--rule)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:transparent;border-radius:999px;padding:5px 12px 5px 9px;font-size:13px;color:var(--ink);cursor:pointer;transition:opacity .2s,border-color .2s}
+.chip i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.chip[aria-pressed="false"]{opacity:.42}
+.chip:hover{border-color:var(--ink-3)}
+.note{font-size:12.5px;color:var(--ink-3);margin-top:14px}
+
+/* stacked column chart (HTML) */
+.cols{position:relative;height:300px;margin-top:26px;margin-left:30px}
+.cols .grid{position:absolute;inset:0;pointer-events:none}
+.cols .gl{position:absolute;left:0;right:0;border-top:1px solid var(--rule-2)}
+.cols .gl span{position:absolute;left:-30px;top:-8px;width:22px;text-align:right;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.cols .gl.base{border-top-color:var(--ink-3)}
+.cols .row{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:clamp(8px,2vw,22px)}
+.col{position:relative;display:flex;flex-direction:column-reverse;gap:2px;cursor:default;border-radius:6px}
+.col .seg-b{width:100%;transition:height .6s var(--ease);min-height:0}
+.col .seg-b:last-of-type{border-radius:4px 4px 0 0}
+.col .tot{position:absolute;left:0;right:0;text-align:center;font-size:12.5px;font-weight:600;transition:bottom .6s var(--ease)}
+.col .m{position:absolute;left:0;right:0;bottom:-26px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em}
+.col:hover,.col.focus{background:color-mix(in srgb,var(--wash) 80%,transparent)}
+.tip{position:absolute;z-index:5;pointer-events:none;background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 14px;font-size:12.5px;min-width:180px;box-shadow:0 18px 40px -16px rgba(0,0,0,.45);opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s}
+.tip.show{opacity:1;transform:none}
+.tip b{display:block;font-family:var(--serif);font-weight:400;font-size:18px;margin-bottom:6px}
+.tip div{display:flex;justify-content:space-between;gap:16px;line-height:1.7}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px}
+.insights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:40px}
+.insights div{border-top:1px solid var(--rule);padding-top:16px;display:grid;gap:6px}
+.insights .big{font-family:var(--serif);font-weight:300;font-size:40px;line-height:1;letter-spacing:-.02em}
+.insights p{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+
+/* speed */
+.speed{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:26px}
+.speed .big{font-family:var(--serif);font-weight:300;font-size:clamp(76px,10vw,128px);line-height:.9;letter-spacing:-.04em;color:var(--brand)}
+.speed .big small{font-size:.4em}
+.speed .cap{font-size:15px;color:var(--ink-2);margin-top:10px;max-width:30ch}
+.dist{display:grid;gap:14px}
+.drow{display:grid;grid-template-columns:86px minmax(0,1fr) 48px;gap:14px;align-items:center;font-size:14px}
+.drow .tr{height:14px;border-radius:5px;background:var(--wash);overflow:hidden}
+.drow .fl{height:100%;border-radius:5px;background:var(--brand);transition:width .7s var(--ease)}
+.drow.slow .fl{background:var(--ink-3)}
+.drow .v{text-align:right;color:var(--ink-2);font-size:13px}
+.drow .v b{color:var(--ink);font-weight:600}
+
+.approve{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:end;margin-top:clamp(44px,6vw,72px)}
+.approve .big{font-family:var(--serif);font-weight:300;font-size:clamp(76px,10vw,128px);line-height:.85;letter-spacing:-.04em}
+.approve .big small{font-size:.4em}
+.approve h3{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:-.01em}
+.approve p{color:var(--ink-2);margin-top:8px;max-width:52ch}
+.strip{display:flex;gap:2px;height:12px;margin-top:28px;border-radius:6px;overflow:hidden}
+.strip div{height:100%}
+.strip-l{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:14px;font-size:13.5px;color:var(--ink-2)}
+.strip-l span{display:inline-flex;align-items:center;gap:8px}
+.strip-l b{color:var(--ink);font-weight:600}
+.strip-l i{width:9px;height:9px;border-radius:3px;display:inline-block}
+
+/* approach list */
+.ways{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--rule)}
+.way{display:grid;grid-template-columns:42px minmax(0,1fr) minmax(0,1.25fr);gap:16px 28px;padding:22px 8px;border-top:1px solid var(--rule);transition:background .3s var(--ease);border-radius:2px}
+.way:hover{background:var(--wash)}
+.ways.block,.outs.block{margin-top:clamp(36px,5vw,56px)}
+.way .k{font-family:var(--mono);color:var(--ink-3);font-size:13px;padding-top:6px}
+.way h3{font-family:var(--serif);font-size:24px;line-height:1.2;letter-spacing:-.01em}
+.way p{color:var(--ink-2);font-size:15.5px;line-height:1.55}
+
+/* business explorer */
+.explore{display:grid;grid-template-columns:260px minmax(0,1fr);gap:0;margin-top:26px;padding:0;overflow:hidden}
+.tabs{display:flex;flex-direction:column;border-right:1px solid var(--rule);padding:12px}
+.tab{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;border:0;background:transparent;padding:14px 14px;border-radius:12px;cursor:pointer;color:var(--ink-2);transition:background .2s,color .2s}
+.tab i{width:10px;height:10px;border-radius:3px}
+.tab span{font-size:14.5px}
+.tab small{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--wash);color:var(--ink)}
+.tab[aria-selected="true"] span{font-weight:500}
+.pane{padding:clamp(20px,3.4vw,36px);display:grid;gap:26px;min-width:0}
+.pane h3{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.2vw,38px);letter-spacing:-.015em;line-height:1.1}
+.pane .role{color:var(--ink-2);margin-top:8px;max-width:56ch}
+.pstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.pstats div{padding:14px 14px 14px 0;display:grid;gap:4px}
+.pstats div+div{padding-left:14px;border-left:1px solid var(--rule)}
+.pstats b{font-family:var(--serif);font-weight:300;font-size:34px;line-height:1;letter-spacing:-.02em}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.spark{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;height:120px;align-items:end;margin-top:14px}
+.spark div{position:relative;border-radius:4px 4px 0 0;transition:height .6s var(--ease),background .3s;min-height:2px}
+.spark div::after{content:attr(data-v);position:absolute;left:0;right:0;top:-18px;text-align:center;font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.spark div[data-v="0"]::after{content:""}
+.spark-m{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:6px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);text-align:center}
+.works{list-style:none;margin:10px 0 0;padding:0}
+.works li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px solid var(--rule-2);font-size:14.5px}
+.works li span{color:var(--ink-3);font-size:12.5px;white-space:nowrap;font-family:var(--mono)}
+.pane-in{animation:fade .45s var(--ease)}
+
+/* formats */
+.fmt{display:grid;gap:12px;margin-top:26px}
+.frow{display:grid;grid-template-columns:150px minmax(0,1fr) 36px;gap:14px;align-items:center;font-size:14px;transition:opacity .3s}
+.frow .tr{height:22px;border-radius:6px;background:var(--wash);overflow:hidden}
+.frow .fl{height:100%;border-radius:6px;transition:width .6s var(--ease),background .3s}
+.frow .v{text-align:right;font-weight:600}
+.frow.dim{opacity:.25}
+.moments{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:26px;border-top:1px solid var(--ink)}
+.mo{padding:16px 14px 6px 0;display:grid;gap:4px;position:relative}
+.mo::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--paper);border:2px solid var(--brand)}
+.mo b{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2}
+.mo span{font-size:13px;color:var(--ink-2)}
+
+/* impact */
+.outs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.outs li{border-top:1px solid var(--rule);padding:16px 0 20px;font-size:16px;line-height:1.5;display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px}
+.outs li::before{content:"";width:16px;height:16px;margin-top:4px;border-radius:50%;border:1.5px solid var(--brand);background:radial-gradient(circle,var(--brand) 0 3px,transparent 3.5px)}
+.awaits{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:22px}
+.await{border:1px dashed var(--rule);border-radius:14px;padding:16px;display:grid;gap:8px;background:repeating-linear-gradient(135deg,transparent 0 8px,color-mix(in srgb,var(--rule) 35%,transparent) 8px 9px)}
+.await b{font-weight:500;font-size:14.5px}
+.await span{font-family:var(--serif);font-size:30px;font-weight:300;color:var(--ink-3);line-height:1}
+
+/* next band */
+.next{background:var(--brand-deep);color:var(--brand-ink);border-top:0}
+.next .wrap{padding-block:clamp(72px,10vw,128px)}
+.next .ch{border-top:0;padding-block:0}
+.next .ch-label .n{color:var(--sun)}
+.next .ch-label .t,.next .lede{color:var(--brand-ink-2)}
+.next h2 em{color:var(--sun)}
+.weeks{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-top:40px}
+.wk{border-radius:12px;padding:14px 12px;min-height:132px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(232,242,236,.14);background:rgba(232,242,236,.04);transition:transform .35s var(--ease),background .35s}
+.wk:hover{transform:translateY(-4px);background:rgba(232,242,236,.09)}
+.wk .w{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--brand-ink-2)}
+.wk b{font-weight:500;font-size:14px;line-height:1.3}
+.wk.pre{background:var(--sun);border-color:transparent;color:#1E1A06}
+.wk.pre .w{color:#5C4A05}
+.wk.rec{border:1px dashed var(--sun);background:transparent}
+.nn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:36px}
+.nn div{border-top:1px solid rgba(232,242,236,.18);padding-top:14px;display:grid;gap:6px}
+.nn .label{color:var(--brand-ink-2)}
+.nn p{font-family:var(--serif);font-size:21px;font-weight:300;line-height:1.3}
+
+footer{padding-block:40px 56px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+footer .logo-tile{padding:8px 10px;border-radius:10px;box-shadow:none}
+footer .logo-tile img{width:72px}
+footer .l{display:flex;align-items:center;gap:14px}
+footer b{color:var(--ink);font-weight:500}
+
+
+/* ---------- imagery ---------- */
+.reel{margin-top:clamp(48px,6vw,80px);border-top:1px solid var(--rule);padding-top:22px}
+.reel-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.reel-head span:last-child{font-size:13px;color:var(--ink-3)}
+.reel-view{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.reel-track{display:flex;gap:18px;width:max-content;animation:reel 70s linear infinite}
+.reel-view:hover .reel-track{animation-play-state:paused}
+.shot{margin:0;display:grid;gap:10px;flex:none}
+.shot img{height:clamp(220px,26vw,320px);width:auto;display:block;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--rule);background:var(--card);transition:transform .5s var(--ease)}
+.shot:hover img{transform:translateY(-4px)}
+.shot figcaption{font-size:12.5px;color:var(--ink-2);display:grid;gap:1px}
+.shot figcaption b{font-weight:500;color:var(--ink)}
+@keyframes reel{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.reel-track{animation:none}.reel-view{overflow-x:auto;-webkit-mask:none;mask:none}}
+
+.feature{margin:clamp(40px,5vw,64px) 0 0;display:grid;gap:12px}
+.feature img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--rule)}
+.feature .pair{display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+.feature .pair img{height:100%;object-fit:cover}
+.feature figcaption,.trio figcaption{font-size:13px;color:var(--ink-3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.feature figcaption b,.trio figcaption b{color:var(--ink-2);font-weight:500}
+
+.trio{display:grid;grid-template-columns:1fr .62fr 1.6fr;gap:14px;margin-top:clamp(36px,5vw,56px);align-items:end}
+.trio figure{margin:0;display:grid;gap:10px}
+.trio img{width:100%;height:clamp(200px,24vw,300px);object-fit:cover;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--rule);display:block}
+.trio figcaption{display:grid;gap:1px}
+
+.pane-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start}
+.pane-top img{width:132px;height:auto;max-height:170px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--rule);display:block}
+
+.next-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(24px,4vw,56px);align-items:center}
+.next-grid img{width:100%;height:auto;border-radius:18px;display:block;box-shadow:0 30px 60px -30px rgba(0,0,0,.7);transform:rotate(1.5deg);transition:transform .6s var(--ease)}
+.next-grid img:hover{transform:rotate(0) scale(1.02)}
+.next-grid figure{margin:0;display:grid;gap:10px}
+.next-grid figcaption{font-size:12.5px;color:var(--brand-ink-2)}
+@media (max-width:900px){.next-grid{grid-template-columns:1fr}.next-grid figure{max-width:300px}.trio{grid-template-columns:1fr 1fr}.trio figure:last-child{grid-column:1/-1}.feature .pair{grid-template-columns:1fr}}
+@media (max-width:560px){.pane-top{grid-template-columns:1fr}.pane-top img{width:120px;order:-1}}
+
+/* motion */
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+@keyframes show{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:no-preference){
+  .hero .ln{animation:up .9s var(--ease) both}
+  .hero .ln:nth-child(2){animation-delay:.12s}
+  .hero .intro,.hero .client{animation:up .9s var(--ease) .22s both}
+  .gh-line{stroke-dasharray:var(--len);animation:draw 1.8s var(--ease) .35s both}
+  .gh-area{animation:show 1.2s ease 1.1s both}
+  .gh-dot,.gh-ann,.gh-ann-s{animation:show .6s ease 1.6s both}
+  @supports (animation-timeline:view()){
+    .rv{animation:up linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+  }
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* responsive */
+@media (max-width:1080px){.chapters{display:none}.now{display:block}}
+@media (max-width:900px){
+  .ch{grid-template-columns:1fr;gap:20px}
+  .ch-label{position:static;grid-auto-flow:column;justify-content:start;gap:12px;align-items:baseline}
+  .intro,.speed,.pgrid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(3){padding-left:0;border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--rule)}
+  .objs{grid-template-columns:1fr 1fr}
+  .explore{grid-template-columns:1fr}
+  .tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--rule);scrollbar-width:none}
+  .tab{grid-template-columns:10px auto auto;white-space:nowrap}
+  .moments{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px}
+  .awaits{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .weeks{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .nn,.outs{grid-template-columns:1fr}
+  .way{grid-template-columns:34px minmax(0,1fr)}
+  .way p{grid-column:2}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .facts{grid-template-columns:1fr 1fr}
+  .objs,.insights{grid-template-columns:1fr}
+  .insights{gap:18px}
+  .pstats{grid-template-columns:1fr 1fr}
+  .pstats div:nth-child(3){padding-left:0;border-left:0}
+  .pstats div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .moments{grid-template-columns:1fr 1fr}
+  .awaits{grid-template-columns:1fr 1fr}
+  .weeks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wk{min-height:92px}
+  .frow{grid-template-columns:104px minmax(0,1fr) 30px;font-size:13px}
+  .cols{height:240px;margin-left:24px}
+  .cols .gl span{left:-26px}
+  .cols .row{gap:5px}
+  .col .tot{font-size:11px}
+  .kpi{padding-right:12px}
+  .kpi + .kpi{padding-left:14px}
+  .kpi:nth-child(3){padding-left:0}
+  .approve{grid-template-columns:1fr}
+}
+
+/* =========== OPTION B · image-led =========== */
+.zoom{cursor:zoom-in}
+.eyebrow{display:inline-flex;gap:12px;align-items:baseline;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.eyebrow span{color:var(--brand)}
+.eyebrow.on-dark{color:var(--brand-ink-2)}.eyebrow.on-dark span{color:var(--sun)}
+.sb h2,.hb h1{font-family:var(--serif);font-weight:300;letter-spacing:-.022em;line-height:1.04}
+.sb h2{font-size:clamp(34px,4.6vw,58px);max-width:20ch}
+.sb{padding-block:clamp(72px,10vw,128px);border-top:1px solid var(--rule)}
+.sb-head{max-width:820px;margin-bottom:clamp(32px,4vw,52px)}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(32px,6vw,88px);align-items:start}
+.split.rev{grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr)}
+
+/* hero */
+.hb{background:var(--brand-deep);color:var(--brand-ink);overflow:hidden;padding-top:clamp(40px,6vw,72px)}
+.hb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,64px);align-items:center}
+.hb .label{color:var(--brand-ink-2)}
+.hb .client .meta span:last-child{color:var(--brand-ink)}
+.hb h1{font-size:clamp(42px,6.2vw,84px);line-height:1;max-width:14ch}
+.hb h1 .accent{color:#7DD8A2}
+.hb-intro{font-size:clamp(16.5px,1.4vw,18.5px);color:var(--brand-ink-2);margin-top:26px;max-width:52ch;line-height:1.6}
+.hb .facts{border-top-color:rgba(232,242,236,.16);margin-top:30px}
+.hb .facts span:last-child{color:var(--brand-ink)}
+.mosaic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;height:clamp(460px,52vw,640px);overflow:hidden;-webkit-mask:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
+.mcol{overflow:hidden}
+.mtrack{display:flex;flex-direction:column;gap:14px}
+.mtrack img{width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.mcol.down .mtrack{transform:translateY(-50%)}
+@keyframes mup{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes mdown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+@media (prefers-reduced-motion:no-preference){
+  .mcol.up .mtrack{animation:mup 60s linear infinite}
+  .mcol.up.slow .mtrack{animation-duration:75s}
+  .mcol.down .mtrack{animation:mdown 66s linear infinite}
+  .mosaic:hover .mtrack{animation-play-state:paused}
+}
+.hb .kpis{border-top:1px solid rgba(232,242,236,.3);margin-top:clamp(36px,5vw,60px)}
+.hb .kpi + .kpi{border-left-color:rgba(232,242,236,.14)}
+.hb .kpi .v{color:#fff}
+.hb .kpi .v small{color:var(--brand-ink-2)}
+.hb .kpi p{color:var(--brand-ink-2)}
+
+/* cinema band */
+.cinema{margin:0;position:relative;background:var(--brand-deep)}
+.cinema img{width:100%;height:clamp(240px,30vw,420px);object-fit:cover;display:block}
+.cinema figcaption{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:48px 18px;font-size:13px;color:#E8F2EC;background:linear-gradient(transparent,rgba(4,20,13,.82))}
+.cinema figcaption .label{color:#E8F2EC}
+
+/* challenge stack */
+.stack{position:relative;padding-bottom:18%}
+.stack img{display:block;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--rule)}
+.stack .s1{width:78%}
+.stack .s2{position:absolute;right:0;bottom:0;width:52%;box-shadow:0 30px 60px -24px rgba(12,26,19,.45);transition:transform .6s var(--ease)}
+.stack:hover .s2{transform:translate(-6px,-6px)}
+.objs.two{grid-template-columns:1fr 1fr}
+
+/* scale tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tile{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow);background:var(--card)}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.tile:hover img{transform:scale(1.05)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,13,0) 35%,rgba(4,20,13,.88) 100%);pointer-events:none}
+.tv{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:22px;color:#fff;display:grid;gap:6px;pointer-events:none}
+.tv .big{font-family:var(--serif);font-weight:300;font-size:clamp(52px,6vw,80px);line-height:.9;letter-spacing:-.03em}
+.tv p{font-size:14.5px;color:rgba(255,255,255,.85);max-width:26ch;line-height:1.45}
+
+/* speed */
+.speed.one{grid-template-columns:1fr;gap:24px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:sticky;top:96px}
+.duo figure{margin:0;display:grid;gap:8px}
+.duo img{width:100%;height:auto;border-radius:16px;display:block;box-shadow:var(--shadow);border:1px solid var(--rule)}
+.duo figure:nth-child(2){margin-top:48px}
+.duo figcaption{font-size:12.5px;color:var(--ink-3)}
+.banner{position:relative;margin-top:clamp(48px,6vw,80px);border-radius:24px;overflow:hidden;min-height:300px;display:flex;align-items:flex-end;background:var(--brand-deep)}
+.banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,13,.92) 0%,rgba(4,20,13,.7) 45%,rgba(4,20,13,.15) 100%)}
+.banner-in{position:relative;z-index:1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,44px);align-items:end;padding:clamp(24px,4vw,44px);color:#fff;max-width:900px}
+.banner .big{font-family:var(--serif);font-weight:300;font-size:clamp(80px,10vw,132px);line-height:.85;letter-spacing:-.04em}
+.banner .big small{font-size:.4em}
+.banner h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.banner p{color:rgba(255,255,255,.82);margin-top:8px;max-width:48ch}
+
+/* approach showcase */
+.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(28px,5vw,72px);align-items:start}
+.show .ways{margin:0;padding:0;list-style:none;border-bottom:1px solid var(--rule)}
+.show .way{grid-template-columns:42px minmax(0,1fr);cursor:pointer;outline-offset:-2px}
+.show .way p{grid-column:2;max-height:0;overflow:hidden;opacity:0;transition:max-height .45s var(--ease),opacity .35s}
+.show .way.on p{max-height:120px;opacity:1}
+.show .way.on{background:var(--wash)}
+.show .way.on .k{color:var(--brand)}
+.preview{margin:0;position:sticky;top:96px;display:grid;gap:10px}
+.preview img{width:100%;height:auto;display:block;border-radius:22px;box-shadow:0 30px 60px -30px rgba(12,26,19,.45);border:1px solid var(--rule);transition:opacity .35s ease,transform .5s var(--ease)}
+.preview img.swap{opacity:0;transform:scale(.985)}
+.preview figcaption{font-size:13px;color:var(--ink-3)}
+
+/* business explorer */
+.tabs.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;border:0;padding:0}
+.tabs.pills .tab{grid-template-columns:10px auto auto;border:1px solid var(--rule);border-radius:999px;padding:8px 14px;background:var(--card)}
+.tabs.pills .tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tabs.pills .tab[aria-selected="true"] small{color:var(--paper);opacity:.7}
+.explore-b{padding:0;overflow:hidden}
+.xb{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);min-height:520px}
+.xb-media{background:var(--wash);display:flex;align-items:center;justify-content:center;padding:clamp(18px,3vw,36px);border-right:1px solid var(--rule)}
+.xb-media img{max-width:100%;max-height:520px;width:auto;height:auto;border-radius:16px;box-shadow:0 30px 60px -30px rgba(12,26,19,.45)}
+.xb-type{width:100%;aspect-ratio:4/5;max-height:480px;border-radius:16px;display:flex;flex-direction:column;justify-content:space-between;padding:28px;color:#fff}
+.xb-type b{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,52px);line-height:1}
+.xb-type span{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.xb .pane{padding:clamp(20px,3.4vw,36px)}
+
+/* craft wall */
+.craft{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,32px);align-items:start}
+.wall{columns:3 160px;column-gap:12px}
+.wall figure{margin:0 0 12px;break-inside:avoid;display:grid;gap:6px;transition:opacity .35s,filter .35s}
+.wall figure.wide{column-span:none}
+.wall img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--rule)}
+.wall figcaption{font-size:12px;color:var(--ink-3)}
+.wall figcaption b{color:var(--ink-2);font-weight:500}
+.wall figure.off{opacity:.18;filter:grayscale(1)}
+
+/* impact */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quad img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;display:block;box-shadow:var(--shadow);border:1px solid var(--rule);transition:transform .5s var(--ease)}
+.quad img:nth-child(2),.quad img:nth-child(4){transform:translateY(28px)}
+.quad img:hover{transform:translateY(-4px)}
+.quad img:nth-child(2):hover,.quad img:nth-child(4):hover{transform:translateY(22px)}
+.outs.one{grid-template-columns:1fr}
+
+/* next */
+.nb{padding-block:clamp(72px,10vw,128px)}
+.next h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,58px);line-height:1.04;letter-spacing:-.022em;color:var(--brand-ink)}
+.next .lede{color:var(--brand-ink-2)}
+.fan{position:relative;height:clamp(340px,36vw,460px)}
+.fan img{position:absolute;width:62%;border-radius:18px;box-shadow:0 30px 60px -25px rgba(0,0,0,.7);transition:transform .6s var(--ease)}
+.fan .f1{left:0;top:8%;transform:rotate(-5deg)}
+.fan .f2{right:0;top:0;transform:rotate(4deg)}
+.fan:hover .f1{transform:rotate(-8deg) translateX(-10px)}
+.fan:hover .f2{transform:rotate(6deg) translateX(10px)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(4,12,9,.9);display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb figure{margin:0;display:grid;gap:12px;justify-items:center;max-width:min(1100px,100%)}
+.lb img{max-width:100%;max-height:82vh;border-radius:14px;display:block;animation:fade .3s var(--ease)}
+.lb figcaption{color:#E8F2EC;font-size:14px}
+.lb-x{position:absolute;top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;cursor:pointer;font-size:13px}
+
+@media (max-width:900px){
+  .hb-grid,.split,.split.rev,.show,.craft,.xb{grid-template-columns:1fr}
+  .mosaic{height:420px}
+  .duo,.preview{position:static}
+  .xb-media{border-right:0;border-bottom:1px solid var(--rule)}
+  .xb-media img{max-height:380px}
+  .tiles{grid-template-columns:1fr 1fr}
+  .tiles .tile:last-child{grid-column:1/-1;aspect-ratio:16/9}
+  .banner-in{grid-template-columns:1fr}
+  .fan{max-width:440px}
+}
+@media (max-width:560px){
+  .mosaic{grid-template-columns:1fr 1fr;height:360px}
+  .mcol:nth-child(3){display:none}
+  .objs.two{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr}
+  .tiles .tile{aspect-ratio:4/3}
+  .tiles .tile:last-child{aspect-ratio:4/3}
+  .wall{columns:2}
+  .xb-type{aspect-ratio:16/9}
+}
+.lb[hidden]{display:none}
+.hb h1 .ln{display:block}
+.tabs.pills{flex-direction:row}
+.tabs.pills .tab{display:inline-grid;width:auto}
+.tile::after{background:linear-gradient(180deg,rgba(4,20,13,0) 25%,rgba(4,20,13,.6) 55%,rgba(4,20,13,.94) 100%)}
+.quad img{object-position:center top}
+.next .nn p{font-size:17px}
+
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="who"><b>Markenzo Worldwide</b> &nbsp;/&nbsp; Jio-bp</span>
+    <ul class="chapters" id="chapters">
+      <li><a href="#challenge">Challenge</a></li>
+      <li><a href="#scale">Scale</a></li>
+      <li><a href="#speed">Speed</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#business">Businesses</a></li>
+      <li><a href="#craft">Craft</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#next">Next</a></li>
+    </ul>
+    <span class="now" id="now">Overview</span>
+    <span class="progress" id="progress"></span>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hb">
+  <div class="wrap hb-grid">
+    <div class="hb-copy">
+      <div class="client">
+        <span class="logo-tile"><img src="data:image/webp;base64,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" alt="Jio-bp"></span>
+        <span class="meta"><span class="label">Client case study</span><span>Brand communication &amp; digital marketing</span></span>
+      </div>
+      <h1><span class="ln">Integrated brand communication</span><span class="ln accent">for Jio-bp</span></h1>
+      <p class="hb-intro">Since March 2026, Markenzo Worldwide has partnered with Jio-bp to build consistent, consumer-centric communication across nine business lines: Jio-bp, Pulse, Wild Bean, IndusInd, Trans-Connect, Loyalty, CNG, Fuel4U and Castrol.</p>
+      <div class="facts">
+        <div><span class="label">Client</span><span>Jio-bp</span></div>
+        <div><span class="label">Agency</span><span>Markenzo Worldwide</span></div>
+        <div><span class="label">Period</span><span>March – October 2026</span></div>
+        <div><span class="label">Scope</span><span>Strategy, copy, design, motion</span></div>
+      </div>
+    </div>
+    <div class="mosaic" aria-label="Selected creative work">
+      <div class="mcol up">
+        <div class="mtrack"><img class="zoom" src="img/active-cleaner.webp" alt="Active Technology · cleaner engine" data-cap="Active Technology · cleaner engine" loading="lazy"><img class="zoom" src="img/wbc-redeem.webp" alt="Wild Bean · voucher redemption" data-cap="Wild Bean · voucher redemption" loading="lazy"><img class="zoom" src="img/earn-redeem.webp" alt="4ever Loyalty · earn and redeem" data-cap="4ever Loyalty · earn and redeem" loading="lazy"><img class="zoom" src="img/rewardmeter-diesel.webp" alt="RewardMeter · diesel standee" data-cap="RewardMeter · diesel standee" loading="lazy"><img aria-hidden="true" class="zoom" src="img/active-cleaner.webp" alt="Active Technology · cleaner engine" data-cap="Active Technology · cleaner engine" loading="lazy"><img aria-hidden="true" class="zoom" src="img/wbc-redeem.webp" alt="Wild Bean · voucher redemption" data-cap="Wild Bean · voucher redemption" loading="lazy"><img aria-hidden="true" class="zoom" src="img/earn-redeem.webp" alt="4ever Loyalty · earn and redeem" data-cap="4ever Loyalty · earn and redeem" loading="lazy"><img aria-hidden="true" class="zoom" src="img/rewardmeter-diesel.webp" alt="RewardMeter · diesel standee" data-cap="RewardMeter · diesel standee" loading="lazy"></div>
+      </div>
+      <div class="mcol down">
+        <div class="mtrack"><img class="zoom" src="img/mobility-5x.webp" alt="Mobility+ Credit Card · 5X points on EV charging" data-cap="Mobility+ Credit Card · 5X points on EV charging" loading="lazy"><img class="zoom" src="img/rewardmeter-cng.webp" alt="RewardMeter · CNG standee" data-cap="RewardMeter · CNG standee" loading="lazy"><img class="zoom" src="img/indusind-card.webp" alt="IndusInd · co-branded card offer" data-cap="IndusInd · co-branded card offer" loading="lazy"><img aria-hidden="true" class="zoom" src="img/mobility-5x.webp" alt="Mobility+ Credit Card · 5X points on EV charging" data-cap="Mobility+ Credit Card · 5X points on EV charging" loading="lazy"><img aria-hidden="true" class="zoom" src="img/rewardmeter-cng.webp" alt="RewardMeter · CNG standee" data-cap="RewardMeter · CNG standee" loading="lazy"><img aria-hidden="true" class="zoom" src="img/indusind-card.webp" alt="IndusInd · co-branded card offer" data-cap="IndusInd · co-branded card offer" loading="lazy"></div>
+      </div>
+      <div class="mcol up slow">
+        <div class="mtrack"><img class="zoom" src="img/pulse-ev-value.webp" alt="Pulse · EV charging value-back" data-cap="Pulse · EV charging value-back" loading="lazy"><img class="zoom" src="img/active-farther.webp" alt="Active Technology · mileage benefit" data-cap="Active Technology · mileage benefit" loading="lazy"><img class="zoom" src="img/wbc-voucher.webp" alt="Wild Bean × 4ever · 8X Smiles" data-cap="Wild Bean × 4ever · 8X Smiles" loading="lazy"><img class="zoom" src="img/mobility-wa.webp" alt="Mobility+ Credit Card · WhatsApp" data-cap="Mobility+ Credit Card · WhatsApp" loading="lazy"><img aria-hidden="true" class="zoom" src="img/pulse-ev-value.webp" alt="Pulse · EV charging value-back" data-cap="Pulse · EV charging value-back" loading="lazy"><img aria-hidden="true" class="zoom" src="img/active-farther.webp" alt="Active Technology · mileage benefit" data-cap="Active Technology · mileage benefit" loading="lazy"><img aria-hidden="true" class="zoom" src="img/wbc-voucher.webp" alt="Wild Bean × 4ever · 8X Smiles" data-cap="Wild Bean × 4ever · 8X Smiles" loading="lazy"><img aria-hidden="true" class="zoom" src="img/mobility-wa.webp" alt="Mobility+ Credit Card · WhatsApp" data-cap="Mobility+ Credit Card · WhatsApp" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="kpis">
+      <div class="kpi"><span class="label">Growth in monthly briefs</span><span class="v num"><span data-count="20">20</span>×</span><p>From one brief in March to twenty in July.</p></div>
+      <div class="kpi"><span class="label">Creative pieces delivered</span><span class="v num" data-count="162">162</span><p>Across digital, print, retail and motion.</p></div>
+      <div class="kpi"><span class="label">Business lines served</span><span class="v num" data-count="9">9</span><p>All nine briefed us in August alone.</p></div>
+      <div class="kpi"><span class="label">Approval rate</span><span class="v num"><span data-count="94">94</span><small>%</small></span><p>Of briefs that reached a final decision.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CINEMA -->
+<figure class="cinema">
+  <img class="zoom" src="img/pulse-hub.webp" alt="Pulse indoor EV charging hub with full-wall branding" data-cap="Pulse EV charging hub · wall branding concept">
+  <figcaption class="wrap"><span class="label">Pulse · EV charging hub</span><span>Charge Into Tomorrow · The Future Is in Motion · Driven by Tomorrow</span></figcaption>
+</figure>
+
+<div class="wrap">
+
+<!-- 01 CHALLENGE -->
+<section class="sb" id="challenge" data-title="Challenge">
+  <div class="split">
+    <div class="stack rv">
+      <img class="zoom s1" src="img/active-farther.webp" alt="Active Technology creative: go farther on the same tank" data-cap="Active Technology · mileage benefit">
+      <img class="zoom s2" src="img/active-cleaner.webp" alt="Active Technology creative: a cleaner engine will go the distance" data-cap="Active Technology · cleaner engine">
+    </div>
+    <div>
+      <span class="eyebrow"><span>01</span>The challenge</span>
+      <h2>Differentiating Jio-bp in a commoditised category</h2>
+      <p class="pull rv">Fuel is widely regarded as a commodity, with customers choosing stations largely on price and convenience. Jio-bp set out to differentiate through <mark>the complete customer experience</mark>: advanced fuels, EV charging, convenience retail and rewarding loyalty programmes.</p>
+      <div class="objs two block">
+        <div class="obj rv"><span class="label">Presence</span><p>Strengthen Jio-bp's brand presence and visibility across India.</p></div>
+        <div class="obj rv"><span class="label">Fuel</span><p>Differentiate its fuels through Active Technology and performance-led stories.</p></div>
+        <div class="obj rv"><span class="label">EV</span><p>Build awareness of EV charging and emerging mobility solutions.</p></div>
+        <div class="obj rv"><span class="label">Loyalty</span><p>Drive engagement for Jio-bp Forever and the Mobility+ Credit Card.</p></div>
+        <div class="obj rv"><span class="label">Convenience</span><p>Promote convenience-led experiences through Wild Bean Cafe and mobility stations.</p></div>
+        <div class="obj rv"><span class="label">Communication</span><p>Keep every message relatable and consumer-first, on every platform.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 SCALE -->
+<section class="sb" id="scale" data-title="Scale">
+  <div class="sb-head">
+    <span class="eyebrow"><span>02</span>Scale</span>
+    <h2>Twentyfold growth in monthly brief volume</h2>
+    <p class="lede">Within five months, the engagement grew from a single brief to an always-on partnership spanning nine business lines.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile rv"><img class="zoom" src="img/earn-redeem.webp" alt="4ever Earn and Redeem creative" data-cap="4ever Loyalty · earn and redeem Smiles"><div class="tv"><span class="big num"><span data-count="20">20</span>×</span><p>Growth in monthly brief volume, March to July.</p></div></div>
+    <div class="tile rv"><img class="zoom" src="img/mobility-wa.webp" alt="Mobility+ Credit Card WhatsApp creative" data-cap="Mobility+ Credit Card · WhatsApp creative"><div class="tv"><span class="big num"><span data-count="43">43</span></span><p>Creative pieces delivered in August, the peak month.</p></div></div>
+    <div class="tile rv"><img class="zoom" src="img/wbc-voucher.webp" alt="Wild Bean and 4ever 8X Smiles creative" data-cap="Wild Bean × 4ever · 8X Smiles offer"><div class="tv"><span class="big num"><span data-count="9">9</span></span><p>Business lines briefing us in a single month (August).</p></div></div>
+  </div>
+  <div class="card block rv">
+    <div class="card-head">
+      <div><h3 id="colsTitle">Briefs per month</h3><p class="sub">Stacked by business line · hover a month for detail · smaller lines grouped</p></div>
+      <div class="seg" role="group" aria-label="Measure">
+        <button type="button" aria-pressed="true" data-measure="briefs">Briefs</button>
+        <button type="button" aria-pressed="false" data-measure="pieces">Creative pieces</button>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="cols" id="cols"><div class="grid" id="colsGrid"></div><div class="row" id="colsRow"></div><div class="tip" id="tip"></div></div>
+    <p class="note" style="margin-top:40px">October includes briefs received up to 27 Oct.</p>
+  </div>
+  <figure class="growth-hero rv" style="margin-inline:0" aria-label="Cumulative briefs delivered, March to October 2026, rising from 1 to 94">
+    <svg id="gh" role="img"></svg>
+  </figure>
+</section>
+
+<!-- 03 SPEED -->
+<section class="sb" id="speed" data-title="Speed">
+  <div class="split rev">
+    <div>
+      <span class="eyebrow"><span>03</span>Speed and quality</span>
+      <h2>Faster turnaround with consistent quality</h2>
+      <p class="lede">Retail offers, loyalty pushes and festive campaigns depend on rapid turnaround. Response times improved steadily as the partnership matured, while approval rates remained high.</p>
+      <div class="card block rv">
+        <div class="card-head"><div><h3>First drafts delivered within one day</h3><p class="sub">Share of briefs with a first draft on the same or the following day</p></div></div>
+        <div class="speed one">
+          <div><div class="big num"><span data-count="75">75</span><small>%</small></div><p class="cap">of first drafts delivered within one day from July to October.</p></div>
+          <div class="dist">
+            <div class="drow slow"><span>Mar – Jun</span><div class="tr"><div class="fl" style="width:48%"></div></div><span class="v num"><b>48%</b></span></div>
+            <div class="drow"><span>Jul – Oct</span><div class="tr"><div class="fl" style="width:75%"></div></div><span class="v num"><b>75%</b></span></div>
+            <p class="note" style="margin-top:4px">An improvement of 27 percentage points as the team settled into Jio-bp's brand and approval workflows.</p>
+          </div>
+        </div>
+      </div>
+      <div class="insights">
+        <div class="rv"><span class="big num">1 day</span><p>Median time from brief to first draft.</p></div>
+        <div class="rv"><span class="big num">26</span><p>Briefs with a same-day first draft.</p></div>
+        <div class="rv"><span class="big num">64</span><p>Briefs approved and delivered to date.</p></div>
+      </div>
+    </div>
+    <div class="duo rv">
+      <figure><img class="zoom" src="img/rewardmeter-cng.webp" alt="RewardMeter CNG forecourt standee" data-cap="RewardMeter · CNG forecourt standee"><figcaption>RewardMeter · CNG standee</figcaption></figure>
+      <figure><img class="zoom" src="img/rewardmeter-diesel.webp" alt="RewardMeter diesel forecourt standee" data-cap="RewardMeter · diesel forecourt standee"><figcaption>RewardMeter · diesel standee</figcaption></figure>
+    </div>
+  </div>
+  <div class="banner rv">
+    <img src="img/pulse-mural.webp" alt="" aria-hidden="true">
+    <div class="banner-in">
+      <div class="big num">94<small>%</small></div>
+      <div><h3>Approval rate on finalised briefs</h3><p>64 of the 68 briefs that reached a final decision were approved, reflecting close alignment with Jio-bp's brand and business teams.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 APPROACH -->
+<section class="sb" id="approach" data-title="Approach">
+  <div class="sb-head">
+    <span class="eyebrow"><span>04</span>Our approach</span>
+    <h2>An integrated, consumer-first approach</h2>
+    <p class="lede">Each piece of communication is grounded in an everyday customer moment, from refuelling and EV charging to a café visit or a loyalty redemption. Hover over a capability to see it in the work.</p>
+  </div>
+  <div class="show">
+    <ol class="ways" id="ways">
+      <li class="way on" data-img="mobility-5x" data-cap="Mobility+ Credit Card · campaign creative" tabindex="0"><span class="k">01</span><h3>Campaign planning</h3><p>Concepts, communication strategy and content calendars tied to each business objective.</p></li>
+      <li class="way" data-img="active-cleaner" data-cap="Active Technology · key visual" tabindex="0"><span class="k">02</span><h3>Creative &amp; visual design</h3><p>Social creatives, key visuals, retail and on-ground assets built on one consistent system.</p></li>
+      <li class="way" data-img="active-farther" data-cap="Active Technology · mileage benefit" tabindex="0"><span class="k">03</span><h3>Product communication</h3><p>Active Technology fuel benefits, EV charging advantages and loyalty perks, communicated with clarity.</p></li>
+      <li class="way" data-img="mobility-wa" data-cap="Mobility+ Credit Card · WhatsApp" tabindex="0"><span class="k">04</span><h3>Digital marketing</h3><p>Platform-specific content for Instagram, WhatsApp, Google Business Profiles and email.</p></li>
+      <li class="way" data-img="earn-redeem" data-cap="4ever Loyalty · earn and redeem" tabindex="0"><span class="k">05</span><h3>Loyalty-led campaigns</h3><p>Jio-bp Forever and Mobility+ Credit Card communication around earning and redeeming Smiles.</p></li>
+      <li class="way" data-img="wbc-voucher" data-cap="Wild Bean × 4ever · everyday moments" tabindex="0"><span class="k">06</span><h3>Consumer storytelling</h3><p>Everyday scenarios around fuel, travel, shopping, groceries and EV charging.</p></li>
+      <li class="way" data-img="pulse-ev-value" data-cap="Pulse · EV charging value-back" tabindex="0"><span class="k">07</span><h3>Video &amp; reel concepts</h3><p>Short-form, creator-friendly formats that communicate product benefits quickly and clearly.</p></li>
+    </ol>
+    <figure class="preview">
+      <img id="wayImg" class="zoom" src="img/mobility-5x.webp" alt="Mobility+ Credit Card campaign creative" data-cap="Mobility+ Credit Card · campaign creative">
+      <figcaption id="wayCap">Mobility+ Credit Card · campaign creative</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 05 BUSINESSES -->
+<section class="sb" id="business" data-title="Businesses">
+  <div class="sb-head">
+    <span class="eyebrow"><span>05</span>Across the business</span>
+    <h2>Nine business lines, one consistent brand</h2>
+    <p class="lede">Select a business line to view its work, scope and delivery over the engagement.</p>
+  </div>
+  <div class="tabs pills" role="tablist" aria-label="Business lines" id="tabs"></div>
+  <div class="card explore-b rv" role="tabpanel" id="pane" aria-live="polite"></div>
+</section>
+
+<!-- 06 CRAFT -->
+<section class="sb" id="craft" data-title="Craft">
+  <div class="sb-head">
+    <span class="eyebrow"><span>06</span>Craft and moments</span>
+    <h2>Seamless communication across digital and physical touchpoints</h2>
+    <p class="lede">Of the 94 briefs, 55 were digital and 40 were print or on-ground, with four spanning both, all delivered within one consistent brand system. Filter the chart to highlight the matching work.</p>
+  </div>
+  <div class="craft">
+    <div class="card rv">
+      <div class="card-head">
+        <div><h3>Creative pieces by format</h3><p class="sub">March – October 2026</p></div>
+        <div class="seg" role="group" aria-label="Channel">
+          <button type="button" aria-pressed="true" data-ch="all">All</button>
+          <button type="button" aria-pressed="false" data-ch="d">Digital</button>
+          <button type="button" aria-pressed="false" data-ch="p">Print &amp; on-ground</button>
+        </div>
+      </div>
+      <div class="fmt" id="fmt"></div>
+      <div class="strip-l" style="margin-top:20px"><span><i style="background:var(--s1)"></i>Digital</span><span><i style="background:var(--s3)"></i>Print &amp; on-ground</span><span><i style="background:var(--ink-3)"></i>Both</span></div>
+    </div>
+    <div class="wall" id="wall">
+      <figure data-k="d"><img class="zoom" src="img/indusind-card.webp" alt="IndusInd co-branded card offer" data-cap="IndusInd · co-branded card offer"><figcaption><b>Digital</b> IndusInd card offer</figcaption></figure>
+      <figure data-k="p"><img class="zoom" src="img/rewardmeter-cng.webp" alt="RewardMeter CNG standee" data-cap="RewardMeter · CNG standee"><figcaption><b>Print</b> CNG standee</figcaption></figure>
+      <figure data-k="d"><img class="zoom" src="img/pulse-ev-value.webp" alt="Pulse EV charging value-back creative" data-cap="Pulse · EV charging value-back"><figcaption><b>Digital</b> Pulse WhatsApp</figcaption></figure>
+      <figure data-k="d"><img class="zoom" src="img/wbc-redeem.webp" alt="Wild Bean voucher redemption creative" data-cap="Wild Bean · voucher redemption"><figcaption><b>Digital</b> Wild Bean voucher</figcaption></figure>
+      <figure data-k="p" class="wide"><img class="zoom" src="img/pulse-hub-detail.webp" alt="Pulse charging hub wall branding detail" data-cap="Pulse · charging hub wall branding"><figcaption><b>On-ground</b> Pulse hub branding</figcaption></figure>
+      <figure data-k="p"><img class="zoom" src="img/rewardmeter-diesel.webp" alt="RewardMeter diesel standee" data-cap="RewardMeter · diesel standee"><figcaption><b>Print</b> Diesel standee</figcaption></figure>
+    </div>
+  </div>
+  <div class="block">
+    <h3 class="label" style="font-size:12px">Moment marketing · Jul – Oct</h3>
+    <div class="moments">
+      <div class="mo rv"><span class="label">Jul</span><b>Foundation Day</b><span>Logo animation</span></div>
+      <div class="mo rv"><span class="label">Aug</span><b>Independence Day</b><span>8 creatives</span></div>
+      <div class="mo rv"><span class="label">Sep</span><b>Janmashtami</b><span>3 creatives</span></div>
+      <div class="mo rv"><span class="label">Sep</span><b>Ganesh Chaturthi</b><span>8 creatives</span></div>
+      <div class="mo rv"><span class="label">Oct</span><b>Swachhata Hi Seva</b><span>Carousel</span></div>
+      <div class="mo rv"><span class="label">Oct</span><b>Drivers' Day</b><span>Safety standee</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 IMPACT -->
+<section class="sb" id="impact" data-title="Impact">
+  <div class="split">
+    <div class="quad rv">
+      <img class="zoom" src="img/earn-redeem.webp" alt="4ever earn and redeem creative" data-cap="4ever Loyalty · earn and redeem">
+      <img class="zoom" src="img/wbc-redeem.webp" alt="Wild Bean voucher creative" data-cap="Wild Bean · voucher redemption">
+      <img class="zoom" src="img/indusind-card.webp" alt="IndusInd card offer creative" data-cap="IndusInd · card offer">
+      <img class="zoom" src="img/active-cleaner.webp" alt="Active Technology creative" data-cap="Active Technology · cleaner engine">
+    </div>
+    <div>
+      <span class="eyebrow"><span>07</span>Impact</span>
+      <h2>Impact and key outcomes</h2>
+      <p class="lede">By translating product features into relatable customer moments, the communication made Jio-bp's offerings clearer, more relevant and easier to act on.</p>
+      <ul class="outs one block">
+        <li class="rv">Stronger product communication across fuels, EV charging, café, loyalty and new services.</li>
+        <li class="rv">Consumer-first storytelling around fuel performance, EV charging and mobility benefits.</li>
+        <li class="rv">A simpler story for earning and redeeming Smiles across Jio-bp Forever and Mobility+.</li>
+        <li class="rv">One consistent communication system from digital to retail to on-ground.</li>
+        <li class="rv">New formats that travel well: WhatsApp series, GIFs, reels and sticker packs.</li>
+      </ul>
+      <p class="note block">Campaign reach, engagement and Smiles redemption metrics will be added as platform data becomes available.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- 08 NEXT -->
+<section class="next" id="next" data-title="Next">
+  <div class="wrap nb">
+    <div class="split">
+      <div>
+        <span class="eyebrow on-dark"><span>08</span>What's next</span>
+        <h2>Next phase: Mobility+ Credit Card campaign</h2>
+        <p class="lede">An eight-week, film-led campaign that places the Mobility+ Credit Card at the centre of the customer journey, from everyday spends to earning and redeeming Smiles.</p>
+        <div class="nn">
+          <div><span class="label">Audience</span><p>Young professionals aged 25 to 40.</p></div>
+          <div><span class="label">Story</span><p>Card usage, Smiles accrual and redemption via UPI.</p></div>
+          <div><span class="label">Treatment</span><p>Split-screen films supported by reels and static posts.</p></div>
+        </div>
+      </div>
+      <div class="fan">
+        <img class="zoom f1" src="img/pulse-ev-value.webp" alt="Pulse EV value-back creative with Mobility+ card" data-cap="Pulse × Mobility+ · EV charging value-back">
+        <img class="zoom f2" src="img/mobility-5x.webp" alt="Mobility+ Credit Card creative: every charge deserves 5X points" data-cap="Mobility+ Credit Card · every charge deserves 5X points">
+      </div>
+    </div>
+    <div class="weeks">
+      <div class="wk pre"><span class="w">WEEK 1</span><b>Pre-launch teasers and countdown</b></div>
+      <div class="wk"><span class="w">WEEK 2</span><b>Sustenance</b></div>
+      <div class="wk"><span class="w">WEEK 3</span><b>Sustenance</b></div>
+      <div class="wk"><span class="w">WEEK 4</span><b>Sustenance</b></div>
+      <div class="wk"><span class="w">WEEK 5</span><b>Sustenance</b></div>
+      <div class="wk"><span class="w">WEEK 6</span><b>Sustenance</b></div>
+      <div class="wk"><span class="w">WEEK 7</span><b>Sustenance</b></div>
+      <div class="wk rec"><span class="w">WEEK 8</span><b>Recall</b></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="l"><span class="logo-tile"><img src="data:image/webp;base64,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" alt="Jio-bp"></span><span><b>Markenzo Worldwide</b> for Jio-bp · November 2026</span></span>
+    <span>Source: Jio-bp Monthly Deliverables Tracker, 24 Mar – 27 Oct 2026. Business lines as recorded in the tracker.</span>
+  </div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="lb-x" id="lbX" aria-label="Close">Close</button>
+  <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption></figure>
+</div>
+
+
+<script>
+(function(){
+const M=['Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'];
+const L=[
+ {id:'jbp',short:'Jio-bp',c:'--s1',briefs:[1,3,1,6,6,5,4,5],pieces:[1,2,6,14,9,14,14,4]},
+ {id:'pulse',short:'Pulse',c:'--s2',briefs:[0,0,3,4,6,1,0,4],pieces:[0,0,9,5,5,4,0,13]},
+ {id:'wbc',short:'Wild Bean',c:'--s3',briefs:[0,0,3,2,5,4,4,7],pieces:[0,0,3,2,7,8,7,9]},
+ {id:'loyal',short:'Loyalty',c:'--s4',briefs:[0,0,0,2,3,4,2,0],pieces:[0,0,0,1,4,10,2,0]},
+ {id:'oth',short:'IndusInd, Trans-Connect, CNG, Fuel4U, Castrol',c:'--s5',briefs:[0,0,0,0,0,5,0,4],pieces:[0,0,0,0,0,7,0,2]}
+];
+const B=[
+ {name:'Jio-bp',img:'active-cleaner',c:'--s1',pieces:[1,2,6,14,9,14,14,4],stats:[31,64,'33%','18 / 12'],
+  role:'The core brand, covering Active Technology fuels, forecourt communication, always-on social media, WhatsApp CRM and the festive calendar.',
+  work:[['Active Technology banners and WhatsApp stickers','Fuel USP'],['4ever WhatsApp fuel creatives','9 pieces'],['Independence Day, Janmashtami, Ganesh Chaturthi','19 pieces'],['Weekly Google Business Profile creatives','Always-on'],['Operation Sunrise animated reveal','Motion'],['CNG leaflets, standees and gifting collateral','Forecourt']]},
+ {name:'Pulse',img:'pulse-ev-value',c:'--s2',pieces:[0,0,9,5,5,4,0,13],stats:[18,36,'19%','12 / 6'],
+  role:'The EV charging network, covering hub launches, venue branding, the Mobility+ Credit Card key visual and re-engagement of lapsed EV customers.',
+  work:[['Mobility+ Credit Card key visual','Launch KV'],['T2 Hub gate branding','4 designs'],['NMACC signage and digital screens','Venue'],['EV Lapsers WhatsApp campaign','Re-engagement'],['EV charging video','Video'],['Bangalore hub branding','Launch']]},
+ {name:'Wild Bean',img:'wbc-redeem',c:'--s3',pieces:[0,0,3,2,7,8,7,9],stats:[25,36,'27%','13 / 15'],
+  role:'Wild Bean Cafe, covering menu launches, in-store offers, packaging and store branding.',
+  work:[['Food launch, paratha and pizza standees','In-store'],['Tent cards and offer creatives','9 pieces'],['Coffee bottle and tea tin packaging','Packaging'],['Wall branding and glazing artwork','Store'],['DAKC and RCP offer emailers','CRM']]},
+ {name:'IndusInd',img:'indusind-card',c:'--s5',pieces:[0,0,0,0,0,1,0,1],stats:[2,2,'2%','1 / 1'],
+  role:'Co-branded Mobility Card communication with IndusInd, across the forecourt and digital.',
+  work:[['Wild Bean Cafe Mobility Card offer standee','In-store'],['Mobility Card application completion creative','Digital']]},
+ {name:'Trans-Connect',c:'--s5',pieces:[0,0,0,0,0,1,0,1],stats:[4,2,'4%','2 / 2'],
+  role:'A new Jio-bp mobility platform, supported with identity, collateral and launch assets.',
+  work:[['Trans-Connect brochure','4-side'],['Chatbot name and icon','Naming'],['Trans-Connect GIF','Motion'],['Visiting card','Stationery']]},
+ {name:'Loyalty',img:'earn-redeem',c:'--s4',pieces:[0,0,0,1,4,10,2,0],stats:[11,17,'12%','8 / 2'],
+  role:'Jio-bp Forever and partner loyalty programmes, simplifying how customers earn and redeem Smiles.',
+  work:[['8X Smiles campaign and last-day push','Earn'],['800 bonus Smiles WhatsApp creative','Earn'],['4ever WhatsApp sticker pack','7 stickers'],['4ever Rewards outlet standees','Retail'],['RewardMeter post and channel partner emailer','Engage']]},
+ {name:'CNG',img:'rewardmeter-cng',c:'--s5',pieces:[0,0,0,0,0,3,0,0],stats:[1,3,'1%','0 / 1'],
+  role:'Forecourt communication for CNG at Jio-bp stations.',
+  work:[['CNG standees','3 designs']]},
+ {name:'Fuel4U',c:'--s5',pieces:[0,0,0,0,0,1,0,0],stats:[1,1,'1%','1 / 0'],
+  role:'Digital launch communication for Fuel4U.',
+  work:[['Fuel4U creative','Dynamic social']]},
+ {name:'Castrol',c:'--s5',pieces:[0,0,0,0,0,1,0,0],stats:[1,1,'1%','0 / 1'],
+  role:'Partner promotion with Castrol at Jio-bp stations.',
+  work:[['Castrol free-petrol banner','Backdrop']]}
+];
+const cv=v=>`var(${v})`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- hero growth line ---------- */
+function drawHero(){
+  const s=document.getElementById('gh'),NS='http://www.w3.org/2000/svg';
+  const W=Math.max(300,Math.round(s.parentNode.clientWidth)),narrow=W<640;
+  const data=[1,4,11,25,45,64,74,94],H=narrow?190:240,T=narrow?44:30,B=30,max=100;
+  s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const x=i=>(narrow?12:20)+i*(W-(narrow?24:60))/(data.length-1), y=v=>T+(H-T-B)*(1-v/max);
+  const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);s.appendChild(e);return e};
+  s.innerHTML='<defs><linearGradient id="ghFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--brand)" stop-opacity=".16"/><stop offset="1" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>';
+  mk('line',{x1:0,x2:W,y1:H-B,y2:H-B,class:'gh-grid'});
+  // smooth path (monotone-ish cardinal)
+  const pts=data.map((v,i)=>[x(i),y(v)]);
+  let d=`M${pts[0][0]},${pts[0][1]}`;
+  for(let i=0;i<pts.length-1;i++){const [x0,y0]=pts[i],[x1,y1]=pts[i+1],mx=(x0+x1)/2;d+=` C${mx},${y0} ${mx},${y1} ${x1},${y1}`}
+  mk('path',{d:d+` L${pts.at(-1)[0]},${H-B} L${pts[0][0]},${H-B} Z`,class:'gh-area'});
+  const line=mk('path',{d,class:'gh-line'});
+  const len=line.getTotalLength();line.style.setProperty('--len',len);
+  M.forEach((m,i)=>{const t=mk('text',{x:x(i),y:H-8,'text-anchor':i===0?'start':i===7?'end':'middle',class:'gh-txt'});t.textContent=narrow?m[0]+m[1]+m[2]:m.toUpperCase()});
+  [[0,'1 brief','March','start'],[4,'45 briefs','by July','middle'],[7,'94 briefs','by October','end']].forEach(([i,a,b,anc])=>{
+    mk('circle',{cx:x(i),cy:y(data[i]),r:4.5,class:'gh-dot'});
+    const dx=anc==='start'?-8:anc==='end'?8:0;
+    const t1=mk('text',{x:x(i)+dx,y:y(data[i])-(i?30:34),'text-anchor':anc,class:'gh-ann'});t1.textContent=a;
+    const t2=mk('text',{x:x(i)+dx,y:y(data[i])-(i?14:18),'text-anchor':anc,class:'gh-ann-s'});t2.textContent=b;
+  });
+  const lab=mk('text',{x:W-12,y:H-B-10,'text-anchor':'end',class:'gh-txt'});lab.textContent=narrow?'':'CUMULATIVE BRIEFS';
+}
+drawHero();let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{const l=document.querySelector('.gh-line');drawHero();document.querySelectorAll('.gh-line,.gh-area,.gh-dot,.gh-ann,.gh-ann-s').forEach(e=>e.style.animation='none')},150)});
+
+/* ---------- counters ---------- */
+const counted=new WeakSet();
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting||counted.has(e.target)||reduce)return;counted.add(e.target);
+  const n=e.target,end=+n.dataset.count,t0=performance.now();
+  (function f(t){const p=Math.min(1,(t-t0)/1200);n.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(n=>io.observe(n));
+
+/* ---------- stacked columns ---------- */
+const state={measure:'briefs',on:new Set(L.map(l=>l.id))};
+const grid=document.getElementById('colsGrid'),row=document.getElementById('colsRow'),tip=document.getElementById('tip'),wrap=document.getElementById('cols');
+const chips=document.getElementById('chips');
+L.forEach(l=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','true');b.innerHTML=`<i style="background:${cv(l.c)}"></i>${l.short.replace('&','&amp;')}`;
+  b.onclick=()=>{if(state.on.has(l.id)){if(state.on.size>1)state.on.delete(l.id)}else state.on.add(l.id);
+    chips.querySelectorAll('.chip').forEach((c,i)=>c.setAttribute('aria-pressed',state.on.has(L[i].id)));drawCols()};chips.appendChild(b)});
+const cols=M.map((m,i)=>{const c=document.createElement('div');c.className='col';c.tabIndex=0;
+  c.innerHTML=L.map(l=>`<div class="seg-b" style="background:${cv(l.c)};height:0"></div>`).join('')+`<span class="tot num"></span><span class="m">${m}</span>`;
+  row.appendChild(c);
+  const show=()=>{const k=state.measure,tot=L.reduce((a,l)=>a+(state.on.has(l.id)?l[k][i]:0),0);
+    tip.innerHTML=`<b>${m==='Oct'?'October':({Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September'})[m]} · ${tot} ${k==='briefs'?'briefs':'pieces'}</b>`+
+      L.filter(l=>state.on.has(l.id)&&l[k][i]).map(l=>`<div><span><i style="background:${cv(l.c)}"></i>${l.short}</span><span class="num">${l[k][i]}</span></div>`).join('');
+    const r=c.getBoundingClientRect(),wr=wrap.getBoundingClientRect();let left=r.left-wr.left+r.width/2-95;left=Math.max(-20,Math.min(left,wr.width-170));
+    tip.style.left=left+'px';tip.style.top='-12px';tip.classList.add('show');c.classList.add('focus')};
+  const hide=()=>{tip.classList.remove('show');c.classList.remove('focus')};
+  c.addEventListener('mouseenter',show);c.addEventListener('mouseleave',hide);c.addEventListener('focus',show);c.addEventListener('blur',hide);
+  return c});
+function drawCols(){
+  const k=state.measure,tots=M.map((_,i)=>L.reduce((a,l)=>a+(state.on.has(l.id)?l[k][i]:0),0));
+  const max=k==='briefs'?20:45,step=k==='briefs'?5:15;
+  grid.innerHTML='';for(let v=0;v<=max;v+=step){grid.insertAdjacentHTML('beforeend',`<div class="gl${v?'':' base'}" style="bottom:${v/max*100}%"><span>${v}</span></div>`)}
+  cols.forEach((c,i)=>{const segs=c.querySelectorAll('.seg-b');L.forEach((l,j)=>{const v=state.on.has(l.id)?l[k][i]:0;segs[j].style.height=(v/max*100)+'%';segs[j].style.display=v?'block':'none'});
+    const t=c.querySelector('.tot');t.textContent=tots[i]||'';t.style.bottom=`calc(${tots[i]/max*100}% + ${4+2*(L.filter(l=>state.on.has(l.id)&&l[k][i]).length-1)}px)`});
+  document.getElementById('colsTitle').textContent=k==='briefs'?'Briefs per month':'Creative pieces per month';
+}
+document.querySelectorAll('[data-measure]').forEach(b=>b.onclick=()=>{state.measure=b.dataset.measure;document.querySelectorAll('[data-measure]').forEach(x=>x.setAttribute('aria-pressed',x===b));drawCols()});
+drawCols();
+
+/* ---------- business explorer ---------- */
+const tabs=document.getElementById('tabs'),pane=document.getElementById('pane');
+function drawPane(l){
+  const mx=Math.max(...l.pieces,1);
+  const media=l.img?`<img class="zoom" src="img/${l.img}.webp" alt="${l.name} creative" data-cap="${l.name} · ${l.work[0][0]}">`:`<div class="xb-type" style="background:${cv(l.c)}"><span>Business line</span><b>${l.name}</b><span>${l.stats[0]} brief${l.stats[0]>1?'s':''}</span></div>`;
+  pane.innerHTML=`<div class="xb pane-in"><div class="xb-media">${media}</div><div class="pane" style="display:grid;gap:26px">
+   <div><span class="label" style="color:${cv(l.c)}">Business line</span><h3 style="margin-top:6px">${l.name}</h3><p class="role">${l.role}</p></div>
+   <div class="pstats"><div><span class="label">Briefs</span><b class="num">${l.stats[0]}</b></div><div><span class="label">Pieces</span><b class="num">${l.stats[1]}</b></div><div><span class="label">Share of briefs</span><b class="num">${l.stats[2]}</b></div><div><span class="label">Digital / print</span><b class="num" style="font-size:26px;padding-top:6px">${l.stats[3]}</b></div></div>
+   <div><span class="label">Selected work</span><ul class="works">${l.work.map(w=>`<li>${w[0].replace(/&/g,'&amp;')}<span>${w[1]}</span></li>`).join('')}</ul></div>
+   <div><span class="label">Pieces by month</span><div class="spark">${l.pieces.map(v=>`<div data-v="${v}" style="height:0;background:${cv(l.c)}"></div>`).join('')}</div><div class="spark-m">${M.map(m=>`<span>${m}</span>`).join('')}</div></div>
+  </div></div>`;
+  pane.querySelectorAll('.zoom').forEach(z=>z.tabIndex=0);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>pane.querySelectorAll('.spark div').forEach((d,i)=>d.style.height=(l.pieces[i]/mx*100)+'%')));
+}
+B.forEach((l,i)=>{const b=document.createElement('button');b.type='button';b.className='tab';b.setAttribute('role','tab');b.setAttribute('aria-selected',i===0);
+  b.innerHTML=`<i style="background:${cv(l.c)}"></i><span>${l.name}</span><small class="num">${l.stats[0]}</small>`;
+  b.onclick=()=>{tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t===b));drawPane(l)};
+  b.onkeydown=e=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();const all=[...tabs.children],n=all[(all.indexOf(b)+((e.key==='ArrowDown'||e.key==='ArrowRight')?1:all.length-1))%all.length];n.focus();n.click()}};
+  tabs.appendChild(b)});
+drawPane(B[0]);
+
+/* ---------- formats ---------- */
+const F=[['Social posts · dynamic',54,'d'],['Social posts · static',30,'d'],['Standees',26,'p'],['Tent cards & leaflets',12,'p'],['Banners',11,'b'],['Backdrops',6,'p'],['GIF & motion',6,'d'],['Ad & campaign copy',5,'d'],['Gate & hub branding',4,'p'],['Packaging',4,'p'],['Emailers',4,'d']];
+const fmt=document.getElementById('fmt');
+F.forEach(f=>fmt.insertAdjacentHTML('beforeend',`<div class="frow" data-k="${f[2]}"><span>${f[0].replace('&','&amp;')}</span><div class="tr"><div class="fl" style="width:${f[1]/54*100}%"></div></div><span class="v num">${f[1]}</span></div>`));
+function drawFmt(ch){fmt.querySelectorAll('.frow').forEach(r=>{const k=r.dataset.k,on=ch==='all'||k===ch||k==='b';r.classList.toggle('dim',!on);
+  r.querySelector('.fl').style.background=k==='d'?'var(--s1)':k==='p'?'var(--s3)':'var(--ink-3)'})}
+document.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-ch]').forEach(x=>x.setAttribute('aria-pressed',x===b));drawFmt(b.dataset.ch)});
+drawFmt('all');
+
+/* ---------- chapter nav + progress ---------- */
+const secs=[...document.querySelectorAll('[data-title]')],links=[...document.querySelectorAll('#chapters a')],now=document.getElementById('now'),prog=document.getElementById('progress');
+function onScroll(){const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;prog.style.transform=`scaleX(${h>0?y/h:0})`;
+  let cur=null;secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=s});
+  links.forEach(a=>a.classList.toggle('on',cur&&a.getAttribute('href')==='#'+cur.id));now.textContent=cur?cur.dataset.title:'Overview'}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+/* ---------- option B: approach showcase ---------- */
+const wImg=document.getElementById('wayImg'),wCap=document.getElementById('wayCap');
+document.querySelectorAll('#ways .way').forEach(li=>{
+  const go=()=>{if(li.classList.contains('on'))return;document.querySelectorAll('#ways .way').forEach(x=>x.classList.toggle('on',x===li));
+    wImg.classList.add('swap');setTimeout(()=>{wImg.src=`img/${li.dataset.img}.webp`;wImg.dataset.cap=li.dataset.cap;wImg.alt=li.dataset.cap;wCap.textContent=li.dataset.cap;wImg.classList.remove('swap')},180)};
+  li.addEventListener('mouseenter',go);li.addEventListener('focus',go);li.addEventListener('click',go);
+});
+/* ---------- option B: wall filter follows the format filter ---------- */
+document.querySelectorAll('[data-ch]').forEach(b=>b.addEventListener('click',()=>{const ch=b.dataset.ch;
+  document.querySelectorAll('#wall figure').forEach(f=>f.classList.toggle('off',ch!=='all'&&f.dataset.k!==ch))}));
+/* ---------- option B: lightbox ---------- */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');let lastFocus=null;
+function closeLb(){lb.hidden=true;document.body.style.overflow='';lastFocus&&lastFocus.focus()}
+document.addEventListener('click',e=>{const z=e.target.closest('.zoom');if(z&&!lb.contains(z)){lastFocus=z;lbImg.src=z.currentSrc||z.src;lbImg.alt=z.alt;lbCap.textContent=z.dataset.cap||z.alt;lb.hidden=false;document.body.style.overflow='hidden';document.getElementById('lbX').focus();return}
+  if(!lb.hidden&&(e.target===lb||e.target.id==='lbX'))closeLb()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)closeLb()});
+document.querySelectorAll('.zoom').forEach(z=>{z.tabIndex=0;z.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();z.click()}})});
+
+})();
+</script>
+
+</body></html>
